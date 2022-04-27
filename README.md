@@ -37,6 +37,7 @@ Para llevarlo acabo dispongo de:
   * Windows 10
   * Visual Studio Code
   * Mongo Atlas 
+  * Mongo Compas
   * NodeJS
   * Angular
   * Google Chrome
@@ -57,16 +58,13 @@ La base para el trabajo con la informacion y poder llevar el proyecto al uso de 
 
 
 ## Resultados
+
+( Futuros ejemplos )
 ## Biografia
-[Fourth Example](http://www.fourthexample.com) 
+
+[Futuros enlaces](http://www.fourthexample.com) 
 ## Conclusiones
 
 Mejoras:
  * >a  
  * >b
-
-
-
-
-
-
