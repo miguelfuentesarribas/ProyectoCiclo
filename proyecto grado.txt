@@ -1,0 +1,13 @@
+
+molmil158@g.educaand.es
+
+proyecto con back y con front
+
+hacer github y rellenar documentacion en el readme (markdown)
+
+Tut mongo atlas
+https://blog.ida.cl/desarrollo/mongodb-atlas-el-salto-a-la-nube/#:~:text=MongoDB%20Atlas%20es%20un%20servicio,a%20trav%C3%A9s%20de%20su%20plataforma.
+
+us sen
+mfuearr155z
+
