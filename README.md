@@ -2,7 +2,7 @@
 
 # TITULO POR DECIDIR
 
-![LOGO](resources/img/LOGO_DEPARTAMENTO.png)  
+![LOGO](ajeno/img/LOGO_DEPARTAMENTO.png)  
 
 # MIGUEL FUENTES ARRIBAS  2021/22
 

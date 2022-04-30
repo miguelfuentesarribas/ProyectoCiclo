@@ -11,15 +11,15 @@ const singIn = async (req, res = response) => {
 
     try {
         let user = await User.findOne({email});
-        //let userName = await User.findOne({name});
-        if (user /*|| userName*/) {
+        let userName = await User.findOne({name});
+        if (user || userName) {
             return res.status(400).json({
                 ok: 'false',
-                mansaje: 'usuario ya existe en la bd '
+                mansaje: 'usuario ya existe en la bd'
             });
         }
         user = new User(req.body);
-        await user.save()
+        await user.save();
         return res.json({
             ok: true,
             mensaje: "registro",
@@ -29,6 +29,7 @@ const singIn = async (req, res = response) => {
             imagen: "por defecto"
         })
     } catch (error) {
+        console.error(error);
         return res.status(500).json({
             ok: false,
             mensaje: 'error en el servidor'
