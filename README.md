@@ -11,7 +11,7 @@
 * [Objetivos](#objetivos)
 * [Material](#material)
 * [Metodología](#metodología)
-* [Resultados](resultados)
+* [Resultados](#resultados)
 * [Biografia](#biografia)
 * [Conclusiones](#conclusiones)
 

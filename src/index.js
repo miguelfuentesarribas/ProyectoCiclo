@@ -1,5 +1,5 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const { conect } = require('./database/config');
 require('dotenv').config();
 const userRoutes = require('./routes/user')
 
@@ -16,8 +16,6 @@ app.get('/', (req, res) => {
 });
 
 //mongodb conexion
-mongoose.connect(process.env.MONGODB_URI)
-.then(() => console.log('conectado a db atlas'))
-.catch((error) => console.error(error));
+conect();
 
 app.listen(PORT, () => console.log('servidor escuchando en el puerto', PORT));

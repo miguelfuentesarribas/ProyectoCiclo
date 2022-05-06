@@ -29,12 +29,90 @@ const singIn = async (req, res = response) => {
             imagen: "por defecto"
         })
     } catch (error) {
+        //console.error(error);
+        return res.status(500).json({
+            ok: false,
+            mensaje: 'error en el servidor, bad request'
+        });
+    }
+}
+
+const listAllUsers = async (req, res = response) => {
+
+    console.log("peticion recibida :");
+    console.log(req.body); 
+    console.log();
+
+    try {
+    const users = await User.find({});
+    return res.status(200).json({
+        ok: true,
+        users
+    });
+    } catch (error) {
         console.error(error);
         return res.status(500).json({
             ok: false,
             mensaje: 'error en el servidor'
         });
+    };
+}
+
+const listUserById = async (req, res) => {
+
+    console.log("peticion recibida :");
+    console.log(req.body); 
+    console.log();
+
+    const {id} = req.params;
+
+    let user = await User.findById(id);
+    return res.status(200).json({
+        ok: true,
+        user
+    });
+}
+
+const updateUserById = async (req, res) => {
+
+    console.log("peticion recibida :");
+    console.log(req.body); 
+    console.log();
+
+    const {id} = req.params;
+    const { name, profilePic  } = req.body;
+    const updateUser = await User.findByIdAndUpdate(id,
+        { $set: {name, profilePic}}
+    );
+    return res.status(201).json({
+        ok: true,
+        updateUser
+    })
+}
+
+const deleteUserById = async (req, res) => {
+
+    console.log("peticion recibida :");
+    console.log(req.body); 
+    console.log();
+
+    let users = await User.find({})
+    const {id} = req.params;
+    const deleteUser = users.find(user => user.id === id);
+    
+    try {
+        await deleteUser.delete()
+        return res.status(201).json({
+            ok: true,
+            deleteUser
+        })    
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            ok: false,
+            mensaje: 'error en el servidor'
+        })
     }
 }
 
-module.exports = { singIn }
+module.exports = { singIn, listAllUsers, listUserById, updateUserById, deleteUserById }
