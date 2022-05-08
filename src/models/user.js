@@ -25,7 +25,7 @@ const userSchema = new Schema({
     }, 
     profilePic: {
         type: String,
-        default: 'futuro valor de icono'
+        default: 'none'
     }
 });
 

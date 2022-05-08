@@ -1,6 +1,5 @@
 const {Router} = require("express");
 const { singIn, listAllUsers, listUserById, updateUserById, deleteUserById } = require('../controller/user')
-const userSchema = require("../models/user");//---
 
 const { check } = require('express-validator');
 const { validateFields } = require("../middleware/validate");

@@ -5,7 +5,9 @@ const { generateJWT } = require('../helper/jwt');
 
 const User = require("../models/user");
 
-const singIn = async (req, res = response) => {
+
+//no aparece el token en los list
+const singIn = async (req, res) => {
 
     const { name, email, password } = req.body;
 
@@ -25,7 +27,7 @@ const singIn = async (req, res = response) => {
         user = new User(req.body);
         user.password = bcrypt.hashSync(password, salt);
         await user.save();
-        const token = await generateJWT(user.id, user.name);
+        const token = await generateJWT(user.id, user.name)
         return res.json({
             ok: true,
             mensaje: "registro",
@@ -37,14 +39,16 @@ const singIn = async (req, res = response) => {
             token
         })
     } catch (error) {
-        //console.error(error);
+        console.error(error);
         return res.status(500).json({
             ok: false,
             mensaje: 'error en el servidor, bad request'
         });
-    }
-}
+    };
+};
 
+
+//comprobar la informacion que se muestra (seguridad)
 const listAllUsers = async (req, res = response) => {
 
     console.log("peticion recibida :");
@@ -64,8 +68,9 @@ const listAllUsers = async (req, res = response) => {
             mensaje: 'error en el servidor'
         });
     };
-}
+};
 
+//fallo si peticiones no contienen el id adecuado
 const listUserById = async (req, res) => {
 
     console.log("peticion recibida :");
@@ -79,37 +84,56 @@ const listUserById = async (req, res) => {
         ok: true,
         user
     });
-}
+};
 
+//con usuario no valido no devuelve que no existe
 const updateUserById = async (req, res) => {
 
     console.log("peticion recibida :");
     console.log(req.body); 
     console.log();
 
+    let users = await User.find({});
     const {id} = req.params;
     const { name, profilePic  } = req.body;
-    const updateUser = await User.findByIdAndUpdate(id,
-        { $set: {name, profilePic}}
-    );
-    return res.status(200).json({
-        ok: true,
-        updateUser
-    })
-}
+    const updateUser = users.find(user => user.id === id);
+    console.log(updateUser);
+    if (updateUser === undefined) {
+        return res.status(204).json({
+            ok: false,
+            mensaje: 'usuario no encontrado'
+        });
+    }
 
+    try {
+        const updateUserTrue = await User.findByIdAndUpdate(id,
+            { $set: {name, profilePic}}
+        );
+        return res.status(200).json({
+            ok: true,
+            updateUserTrue
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            ok: false,
+            mensaje: 'error en el servidor'
+        });
+    };
+};
+
+//mismo fallo
 const deleteUserById = async (req, res) => {
 
     console.log("peticion recibida :");
     console.log(req.body); 
     console.log();
 
-    let users = await User.find({})
+    let users = await User.find({});
     const {id} = req.params;
     const deleteUser = users.find(user => user.id === id);
-    console.log(deleteUser+ "a");
     if (deleteUser === undefined) {
-        returnres.status(204).json({
+        return res.status(204).json({
             ok: false,
             mensaje: 'usuario no encontrado'
         });
@@ -126,7 +150,7 @@ const deleteUserById = async (req, res) => {
             ok: false,
             mensaje: 'error en el servidor'
         });
-    }
-}
+    };
+};
 
 module.exports = { singIn, listAllUsers, listUserById, updateUserById, deleteUserById }
