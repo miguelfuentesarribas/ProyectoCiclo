@@ -1,5 +1,5 @@
 const {Router} = require("express");
-const { createGame } = require("../controller/game");
+const { createGame, listAllPlayers } = require("../controller/game");
 
 const { check } = require('express-validator');
 const { validateFields } = require("../middleware/validate");
@@ -7,10 +7,10 @@ const { validateFields } = require("../middleware/validate");
 const router = Router();
 
 //create game
-router.post('/game',
+router.post('/game/create',
     [
-        check('creador', 'creador necesario').notEmpty(),
-        check('listaDeusuarios', 'lista de usuarios necesaria').notEmpty(),
+        check('creadorId', 'creador necesario').notEmpty(),
+        check('listaDeJugadores', 'lista de usuarios necesaria').notEmpty(),
         check('countDown', 'cuenta atras necesria').notEmpty(),
         validateFields
     ],
@@ -20,9 +20,9 @@ router.post('/game',
 router.get('/game/:id', [], listAllPlayers);
 
 //añadir usuario a la lista
-router.put('/game/:id/idUser', [], updateGameById);
+//router.put('/game/:id/idUser', [], updateGameById);
 
 //borrar partida
-router.delete('/users/:id', [], deleteGameById);
+//router.delete('/users/:id', [], deleteGameById);
 
 module.exports = router;

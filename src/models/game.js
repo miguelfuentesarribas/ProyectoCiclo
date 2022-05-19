@@ -7,9 +7,9 @@ const gameSchema = new Schema({
     creadorId: {
         type: String,
         required: true,
-        unique: true
+        //unique: true
     }, 
-    listaDeUsuarios: {
+    listaDeJugadores: {
         type: [],
         required: true
     }, 

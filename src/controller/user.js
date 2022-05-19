@@ -1,7 +1,9 @@
-const {response} = require('express');
+//login
+
+const { response } = require('express');
 const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(10);
-const { generateJWT } = require('../helper/jwt'); 
+const { generateJWT } = require('../helper/jwt');
 
 const User = require("../models/user");
 
@@ -9,19 +11,19 @@ const User = require("../models/user");
 //no aparece el token en los list
 const singIn = async (req, res) => {
 
-    const { name, email, password } = req.body;
-
     console.log("peticion recibida :");
-    console.log(req.body); 
+    console.log(req.body);
     console.log();
 
+    const { name, email, password } = req.body;
+
     try {
-        let user = await User.findOne({email});
-        let userName = await User.findOne({name});
+        let user = await User.findOne({ email });
+        let userName = await User.findOne({ name });
         if (user || userName) {
             return res.status(400).json({
                 ok: 'false',
-                mansaje: 'usuario ya existe en la bd'
+                mansaje: 'user ya existe en la bd'
             });
         }
         user = new User(req.body);
@@ -31,12 +33,13 @@ const singIn = async (req, res) => {
         return res.json({
             ok: true,
             mensaje: "registro",
+            id: user.id,
             name: user.name,
             email: user.email,
             rol: "no admin",
             imagen: "por defecto",
             password: user.password,
-            token
+            token: token
         })
     } catch (error) {
         console.error(error);
@@ -47,20 +50,82 @@ const singIn = async (req, res) => {
     };
 };
 
+//log User
+const logIn = async (req, res = response) => {
+
+    const { email, password } = req.body
+
+    console.log("peticion recibida :");
+    console.log(req.body);
+    console.log();
+
+    try {
+        let user = await User.findOne({ email })
+        if (!user) {
+            return res.status(400).json({
+                ok: 'false',
+                mansaje: 'usuario no existe '
+            })
+        }
+        //comparamos la contraseña con el hash
+        if (!bcrypt.compareSync(password, user.password)) {
+            return res.status(400).json({
+                ok: 'false',
+                mansaje: 'contraseña erronea'
+            })
+        }
+
+        // generamos un JsonWebToken (no se guarda), se manda el cliente y se valida despues
+        const token = await generateJWT(user.id, user.name)
+
+        return res.json({
+            ok: true,
+            mensaje: "logIn",
+            email,
+            id: user.id,
+            token
+        })
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            ok: false,
+            mensaje: 'internal server error'
+        })
+    }
+}
+
+//refresh token
+const reToken = async (req, res = response) => {
+
+    console.log("peticion recibida :");
+    console.log(req.body);
+    console.log();
+
+    const { id, name } = req
+    const token = await generateJWT(id, name)
+    res.json({
+        ok: true,
+        mensaje: 'refrescando token',
+        token
+    })
+}
+
 
 //comprobar la informacion que se muestra (seguridad)
 const listAllUsers = async (req, res = response) => {
 
     console.log("peticion recibida :");
-    console.log(req.body); 
+    console.log(req.body);
     console.log();
 
     try {
-    const users = await User.find({});
-    return res.status(200).json({
-        ok: true,
-        users
-    });
+        const users = await User.find({});
+        const simpleUsers = users.map( user => {return {name: user.name, id: user.id}})
+        return res.status(200).json({
+            ok: true,
+            simpleUsers
+        });
     } catch (error) {
         console.error(error);
         return res.status(500).json({
@@ -74,10 +139,10 @@ const listAllUsers = async (req, res = response) => {
 const listUserById = async (req, res) => {
 
     console.log("peticion recibida :");
-    console.log(req.body); 
+    console.log(req.body);
     console.log();
 
-    const {id} = req.params;
+    const { id } = req.params;
 
     let user = await User.findById(id);
     return res.status(200).json({
@@ -86,28 +151,28 @@ const listUserById = async (req, res) => {
     });
 };
 
-//con usuario no valido no devuelve que no existe
 const updateUserById = async (req, res) => {
 
     console.log("peticion recibida :");
-    console.log(req.body); 
+    console.log(req.body);
     console.log();
 
     let users = await User.find({});
-    const {id} = req.params;
-    const { name, profilePic  } = req.body;
+    const { id } = req.params;
+    const { name, profilePic } = req.body;
+
     const updateUser = users.find(user => user.id === id);
     console.log(updateUser);
     if (updateUser === undefined) {
         return res.status(204).json({
             ok: false,
-            mensaje: 'usuario no encontrado'
+            mensaje: 'user no encontrado'
         });
     }
 
     try {
         const updateUserTrue = await User.findByIdAndUpdate(id,
-            { $set: {name, profilePic}}
+            { $set: { name, profilePic } }
         );
         return res.status(200).json({
             ok: true,
@@ -122,28 +187,53 @@ const updateUserById = async (req, res) => {
     };
 };
 
-//mismo fallo
+// comprobar administrador
 const deleteUserById = async (req, res) => {
 
     console.log("peticion recibida :");
-    console.log(req.body); 
+    console.log(req.body);
     console.log();
 
     let users = await User.find({});
-    const {id} = req.params;
+    const { id } = req.params;
+
+    const userToken = await User.find({id: req.id})
+
+
+
+
+
+
+
+    // let miraRoll = await User.idFromToken() 
+    if (!userToken.admin) {
+        return res.status(401).json({
+            ok: false,
+            mensaje: 'Sin permiso de administrador'
+        });
+    };
+
+
+
+
+
+
+
+
     const deleteUser = users.find(user => user.id === id);
-    if (deleteUser === undefined) {
+    if (!deleteUser) {
         return res.status(204).json({
             ok: false,
-            mensaje: 'usuario no encontrado'
+            mensaje: 'user no encontrado'
         });
     }
+
     try {
-        await deleteUser.delete()
+        //await deleteUser.delete()
         return res.status(201).json({
             ok: true,
             deleteUser
-        })    
+        })
     } catch (error) {
         console.error(error);
         return res.status(500).json({
@@ -153,4 +243,12 @@ const deleteUserById = async (req, res) => {
     };
 };
 
-module.exports = { singIn, listAllUsers, listUserById, updateUserById, deleteUserById }
+module.exports = {
+    reToken,
+    logIn,
+    singIn, 
+    listAllUsers, 
+    listUserById, 
+    updateUserById, 
+    deleteUserById
+}
