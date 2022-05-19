@@ -1,0 +1,325 @@
+{
+	"info": {
+		"_postman_id": "b73d341d-1c71-4a21-a4d1-7838769a2fcf",
+		"name": "peticiones proyecto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/user singIn",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"manuelo00\",\r\n    \"email\": \"manuelo00@hotmail.es\",\r\n    \"password\": \"123456489\", \r\n    \"mobile\": \"987654571\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9000/api/users/singin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"users",
+						"singin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"manuelo@hotmail.es\",\r\n    \"password\": \"123456489\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9000/api/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user reToken",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODVmN2RlMjE4MzE1YTFhYTBlZGRkMCIsIm5vbWJyZSI6Im1hbnVlbCIsImlhdCI6MTY1Mjk0NjkxMCwiZXhwIjoxNjUyOTUwNTEwfQ.ExdR1nYraOzt1WVxr4fSJJlszQVTfNKvUx6CX4tLJVs",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"manuel@hotmail.es\",\r\n    \"password\": \"123456489\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9000/api/users/refresh",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"users",
+						"refresh"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user update user by id",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODVmN2RlMjE4MzE1YTFhYTBlZGRkMCIsIm5vbWJyZSI6Im1hbnVlbCIsImlhdCI6MTY1Mjk0NjkxMCwiZXhwIjoxNjUyOTUwNTEwfQ.ExdR1nYraOzt1WVxr4fSJJlszQVTfNKvUx6CX4tLJVs",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"ManoloC\",\r\n    \"profilePic\": \"foto perfil\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9000/api/users/6285f89394206044abc5a9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"users",
+						"6285f89394206044abc5a9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user delete user by id",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODYzOTQ4ZGNiYTAxODJlNDFlNzYzMCIsIm5vbWJyZSI6Im1hbnVlbG8wMCIsImlhdCI6MTY1Mjk2MzY1NiwiZXhwIjoxNjUyOTY3MjU2fQ.KtHEkUwE_wy4R2PRBrGRwrJEpqvEBcQ4xzjKUEsmHeg",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:9000/api/users/627836957ec7e5f30649c7dc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"users",
+						"627836957ec7e5f30649c7dc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user list all users",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:9000/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user list user by id",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:9000/api/users/6286320618e89d7a2733e41f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"users",
+						"6286320618e89d7a2733e41f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/game create game",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"creadorId\": \"6285ef4119dfcadf598c72fb\",\r\n    \"name\": \"Miguel\", \r\n    \"listaDeJugadores\": [\"6285ef4119dfcadf598c72fb\"],\r\n    \"countDown\": 50\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9000/api/game/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"game",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/game get all players",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"creadorId\": \"6285ef4119dfcadf598c72fb\",\r\n    \"listaDeUsuarios\": [\"6285ef4119dfcadf598c72fb\"],\r\n    \"countDown\": 50\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9000/api/game/628623580222298127d54b32",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"game",
+						"628623580222298127d54b32"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
