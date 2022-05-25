@@ -45,7 +45,7 @@ const singIn = async (req, res) => {
         console.error(error);
         return res.status(500).json({
             ok: false,
-            mensaje: 'error en el servidor, bad request'
+            mensaje: 'error en el servidor'
         });
     };
 };
@@ -130,7 +130,7 @@ const listAllUsers = async (req, res = response) => {
         console.error(error);
         return res.status(500).json({
             ok: false,
-            mensaje: 'error en el servidor'
+            mensaje: 'internal server error'
         });
     };
 };
@@ -164,7 +164,7 @@ const updateUserById = async (req, res) => {
     const updateUser = users.find(user => user.id === id);
     console.log(updateUser);
     if (updateUser === undefined) {
-        return res.status(204).json({
+        return res.status(404).json({
             ok: false,
             mensaje: 'user no encontrado'
         });
@@ -208,7 +208,7 @@ const deleteUserById = async (req, res) => {
 
     const deleteUser = users.find(user => user.id === id);
     if (!deleteUser) {
-        return res.status(204).json({
+        return res.status(404).json({
             ok: false,
             mensaje: 'user no encontrado'
         });

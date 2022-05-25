@@ -31,7 +31,7 @@ const createGame = async (req, res) => {
         console.error(error);
         return res.status(500).json({
             ok: false,
-            mensaje: 'bad request'
+            mensaje: 'internal server error'
         });
     }
 
@@ -47,7 +47,7 @@ const listAllPlayers = async (req, res) => {
     const {id} = req.params;
     let game = await Game.findById(id);
     if (!game) {
-        return res.status(204).json({
+        return res.status(404).json({
             ok: false,
             mensaje: 'no existe juego'
         });
@@ -63,7 +63,7 @@ const listAllPlayers = async (req, res) => {
         console.error(error);
         return res.status(500).json({
             ok: false,
-            mensaje: 'bad request'
+            mensaje: 'internal server error'
         });
     }
 
