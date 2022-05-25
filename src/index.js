@@ -12,11 +12,6 @@ const PORT = process.env.PORT || 9000;
 app.use(express.json());
 app.use('/api', userRoutes, gameRoutes);
 
-//routes
-// app.get('/', (req, res) => {
-//     res.send("hola a mi API");
-// });
-
 //mongodb conexion
 conect();
 

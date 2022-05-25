@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(10);
 const { generateJWT } = require('../helper/jwt');
 
-const User = require("../models/user");
+const { User } = require("../models/user");
 
 
 //no aparece el token en los list
@@ -121,7 +121,7 @@ const listAllUsers = async (req, res = response) => {
 
     try {
         const users = await User.find({});
-        const simpleUsers = users.map( user => {return {name: user.name, id: user.id}})
+        const simpleUsers = users.map( user => {return user})
         return res.status(200).json({
             ok: true,
             simpleUsers
@@ -199,26 +199,12 @@ const deleteUserById = async (req, res) => {
 
     const userToken = await User.find({id: req.id})
 
-
-
-
-
-
-
-    // let miraRoll = await User.idFromToken() 
     if (!userToken.admin) {
         return res.status(401).json({
             ok: false,
             mensaje: 'Sin permiso de administrador'
         });
     };
-
-
-
-
-
-
-
 
     const deleteUser = users.find(user => user.id === id);
     if (!deleteUser) {

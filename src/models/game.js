@@ -1,4 +1,5 @@
 const { Schema, model} = require('mongoose');
+const {userSchema} = require('./user');
 
 // se construira apartir del primer usuario
 // la peticion debe incluir el nombre e id del 1er usuario
@@ -10,7 +11,7 @@ const gameSchema = new Schema({
         //unique: true
     }, 
     listaDeJugadores: {
-        type: [],
+        type: [userSchema],
         required: true
     }, 
     countDown: {
