@@ -121,10 +121,10 @@ const listAllUsers = async (req, res = response) => {
 
     try {
         const users = await User.find({});
-        const simpleUsers = users.map( user => {return user})
+        const usersList = users.map( user => {return user})
         return res.status(200).json({
             ok: true,
-            simpleUsers
+            usersList
         });
     } catch (error) {
         console.error(error);
