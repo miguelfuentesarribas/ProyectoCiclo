@@ -31,8 +31,9 @@ router.post('/users/login',
     logIn
 );
 
-//
-router.get('/users/refresh', [], validateJWT, reToken)
+// refrescar token
+// to do añadir la validacion de token para comparar si es el usuario quien hace la peticion
+router.get('/users/refresh', validateJWT, reToken)
 
 //list all users
 router.get('/users', [], listAllUsers);

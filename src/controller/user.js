@@ -104,9 +104,12 @@ const reToken = async (req, res = response) => {
 
     const { id, name } = req
     const token = await generateJWT(id, name)
+    
     res.json({
         ok: true,
         mensaje: 'refrescando token',
+        id,
+        name,
         token
     })
 }
