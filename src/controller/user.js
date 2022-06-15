@@ -102,14 +102,19 @@ const reToken = async (req, res = response) => {
     console.log(req.body);
     console.log();
 
-    const { id, name } = req
-    const token = await generateJWT(id, name)
+    const { id, name } = req;
+
+    const dbUser = await User.findById(id);
+    console.log(dbUser);
+
+    const token = await generateJWT(id, name);
     
     res.json({
         ok: true,
         mensaje: 'refrescando token',
         id,
         name,
+        email: dbUser.email,
         token
     })
 }
