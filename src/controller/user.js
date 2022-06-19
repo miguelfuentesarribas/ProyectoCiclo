@@ -30,7 +30,7 @@ const singIn = async (req, res) => {
         user.password = bcrypt.hashSync(password, salt);
         await user.save();
         const token = await generateJWT(user.id, user.name)
-        return res.json({
+        return res.status(201).json({
             ok: true,
             mensaje: "registro",
             id: user.id,
@@ -182,7 +182,7 @@ const updateUserById = async (req, res) => {
         const updateUserTrue = await User.findByIdAndUpdate(id,
             { $set: { name, profilePic } }
         );
-        return res.status(200).json({
+        return res.status(201).json({
             ok: true,
             updateUserTrue
         });

@@ -82,7 +82,7 @@
 					},
 					{
 						"key": "x-token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODVmN2RlMjE4MzE1YTFhYTBlZGRkMCIsIm5vbWJyZSI6Im1hbnVlbCIsImlhdCI6MTY1Mjk0NjkxMCwiZXhwIjoxNjUyOTUwNTEwfQ.ExdR1nYraOzt1WVxr4fSJJlszQVTfNKvUx6CX4tLJVs",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODYzMjA2MThlODlkN2EyNzMzZTQxZiIsIm5hbWUiOiJtYW51ZWxvIiwiaWF0IjoxNjU1Mjc0NjY3LCJleHAiOjE2NTUyNzgyNjd9.gka87xHBTE6dNrZO3u1MlCLjqeFgjkv8rsyJv_nlxZs",
 						"type": "default"
 					}
 				],
@@ -212,7 +212,7 @@
 			"response": []
 		},
 		{
-			"name": "/user list user by id",
+			"name": "/user user by id",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -303,7 +303,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"creadorId\": \"6285ef4119dfcadf598c72fb\",\r\n    \"listaDeUsuarios\": [\"6285ef4119dfcadf598c72fb\"],\r\n    \"countDown\": 50\r\n}"
+					"raw": ""
 				},
 				"url": {
 					"raw": "http://localhost:9000/api/game/628623580222298127d54b32",
